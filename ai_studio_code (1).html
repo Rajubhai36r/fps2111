@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAHIM PREMIUM SUBSCRIPTION | Trusted Digital Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Firebase Cloud Sync SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <style>
+    :root {
+      --bg-dark: #08080b;
+      --surface-dark: #121217;
+      --surface-card: #181820;
+      --surface-elevated: #22222c;
+      --border-dark: #2c2a38;
+      --gold-light: #fff2ad;
+      --gold-primary: #ffd700;
+      --gold-metallic: #d4af37;
+      --gold-dark: #aa771c;
+      --amber-glow: #ff9800;
+      --emerald: #00e676;
+      --crimson: #ff3366;
+      --cyan: #00e5ff;
+      --text-white: #fafafa;
+      --text-muted: #a0a0b2;
+      --text-subtle: #6b6b7e;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --font-main: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+      color: #0b0c10;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-outlined {
+      background: transparent;
+      border: 1.5px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 9px 18px;
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-outlined:hover {
+      background: rgba(255, 215, 0, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-gold {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--gold-primary);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+    }
+
+    .badge-red {
+      background: rgba(255, 51, 102, 0.2);
+      color: var(--crimson);
+      border: 1px solid var(--crimson);
+    }
+
+    .badge-green {
+      background: rgba(0, 230, 118, 0.15);
+      color: var(--emerald);
+      border: 1px solid rgba(0, 230, 118, 0.4);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(18, 18, 23, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #08080b;
+      font-size: 20px;
+      font-weight: 900;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+    }
+
+    .brand-tagline {
+      font-size: 11px;
+      color: var(--gold-primary);
+      font-style: italic;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-dark);
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-elevated);
+      border-color: var(--gold-primary);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #1f1b13, #15151c, #0a0a0d);
+      border: 1.5px solid rgba(255, 215, 0, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--text-white);
+      line-height: 1.25;
+      margin: 12px 0 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quick-contacts {
+      background: var(--surface-card);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 4px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .contact-item:hover {
+      background: var(--surface-elevated);
+      transform: translateY(-2px);
+    }
+
+    .contact-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .contact-name {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .flash-sale-bar {
+      background: linear-gradient(90deg, rgba(255,51,102,0.15), rgba(255,152,0,0.15));
+      border: 1px solid rgba(255,51,102,0.4);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flash-timer {
+      background: #000;
+      color: #ffd700;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+      letter-spacing: 1px;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-filter-select {
+      background: var(--surface-card);
+      color: var(--gold-light);
+      border: 1px solid var(--border-dark);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      outline: none;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .product-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      border-color: rgba(255, 215, 0, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-card.bestseller::before {
+      content: "BEST SELLER";
+      position: absolute;
+      top: 10px;
+      right: -25px;
+      transform: rotate(45deg);
+      background: var(--gold-primary);
+      color: #000;
+      font-size: 8px;
+      font-weight: 900;
+      padding: 3px 25px;
+      letter-spacing: 0.5px;
+    }
+
+    .product-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .brand-badge-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .product-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+
+    .product-category {
+      font-size: 12px;
+      color: var(--gold-primary);
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      min-height: 36px;
+    }
+
+    .variant-selector {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      color: var(--text-white);
+      padding: 8px;
+      width: 100%;
+      font-size: 12.5px;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .product-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .price-orig {
+      font-size: 12px;
+      color: var(--text-subtle);
+      text-decoration: line-through;
+    }
+
+    .price-current {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--gold-light);
+    }
+
+    .custom-request-box {
+      background: linear-gradient(135deg, #161622, #0d0d14);
+      border: 1.5px dashed rgba(255, 215, 0, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .custom-req-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+
+    .custom-req-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .owner-badge-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .owner-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 900;
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface-dark);
+      border: 1.5px solid var(--gold-metallic);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      padding: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold-primary);
+    }
+
+    .floating-support-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 26px;
+      z-index: 99;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .floating-support-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .support-popup {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      background: var(--surface-dark);
+      border: 1.5px solid var(--gold-metallic);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      width: 260px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      z-index: 99;
+      display: none;
+    }
+
+    .support-popup.active {
+      display: block;
+    }
+
+    .support-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 6px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-white);
+      transition: all 0.2s;
+    }
+
+    .support-item:hover {
+      background: var(--surface-card);
+      color: var(--gold-primary);
+    }
+
+    #thorOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #thorCanvas {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .thor-text {
+      position: relative;
+      z-index: 2;
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffd700;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+
+    footer {
+      background: var(--surface-dark);
+      border-top: 1px solid var(--border-dark);
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .quick-contacts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-group">
+      <div class="brand-logo-icon">👑</div>
+      <div>
+        <div class="brand-title">FAHIM PREMIUM</div>
+        <div class="brand-tagline">“Trusted Digital Services”</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-outlined" style="padding: 6px 12px; font-size: 12px;" onclick="openCustomRequestModal()">Custom Request</button>
+      <button class="icon-btn" onclick="openAdminAuthModal()" title="Admin Command Center">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Customer Section -->
+  <div id="customerSection" class="container">
+    
+    <!-- Hero Banner -->
+    <div class="hero-card">
+      <span class="badge badge-gold">🔥 Verified Marketplace</span>
+      <h1 class="hero-title">Premium Subscriptions, Made Simple.</h1>
+      <p class="hero-subtitle">Choose your favorite digital services with flexible subscription plans. Instant activation within 10–30 minutes.</p>
+      <div class="hero-buttons">
+        <a href="#catalog" class="btn-gold">Explore Products</a>
+        <a href="https://wa.me/8801994074975" target="_blank" class="btn-outlined">Direct WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Quick Official Contacts -->
+    <div class="quick-contacts">
+      <a href="https://wa.me/8801994074975" target="_blank" class="contact-item">
+        <div class="contact-icon-circle" style="background: rgba(37, 211, 102, 0.2); color: #25d366;">💬</div>
+        <div class="contact-name">WhatsApp</div>
+        <div style="font-size: 10px; color: var(--text-muted);">01994074975</div>
+      </a>
+      <a href="https://t.me/aioceo36" target="_blank" class="contact-item">
+        <div class="contact-icon-circle" style="background: rgba(0, 136, 204, 0.2); color: #0088cc;">✈️</div>
+        <div class="contact-name">Telegram</div>
+        <div style="font-size: 10px; color: var(--text-muted);">@aioceo36</div>
+      </a>
+      <a href="https://www.facebook.com/FahimPS36" target="_blank" class="contact-item">
+        <div class="contact-icon-circle" style="background: rgba(24, 119, 242, 0.2); color: #1877f2;">📘</div>
+        <div class="contact-name">Facebook</div>
+        <div style="font-size: 10px; color: var(--text-muted);">FahimPS36</div>
+      </a>
+      <a href="tel:01994074975" class="contact-item">
+        <div class="contact-icon-circle" style="background: rgba(255, 215, 0, 0.2); color: var(--gold-primary);">📞</div>
+        <div class="contact-name">Helpline</div>
+        <div style="font-size: 10px; color: var(--text-muted);">Call Now</div>
+      </a>
+    </div>
+
+    <!-- Flash Sale Bar -->
+    <div class="flash-sale-bar">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 20px;">⚡</span>
+        <div>
+          <strong style="color: #ff9800; font-size: 14px;">FLASH SALE ENDING SOON</strong>
+          <div style="font-size: 12px; color: var(--text-muted);">Get 10%–20% extra discount on selected subscriptions!</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 12px; color: var(--text-muted);">Closes in:</span>
+        <div class="flash-timer" id="flashTimer">02:15:30</div>
+      </div>
+    </div>
+
+    <!-- Catalog Section -->
+    <div id="catalog">
+      <div class="section-title-row">
+        <h2 class="section-heading"><span>📦</span> Subscription Products</h2>
+        <select class="category-filter-select" id="categoryFilter" onchange="filterProducts()">
+          <option value="All">All Categories</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Cloud Storage">Cloud Storage</option>
+          <option value="Productivity">Productivity</option>
+        </select>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productGrid">
+        <!-- Generated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Custom Request Banner -->
+    <div class="custom-request-box">
+      <h3 class="custom-req-title">আপনার প্রয়োজনীয় প্রোডাক্ট লিস্টে নেই?</h3>
+      <p class="custom-req-subtitle">উপরের তালিকাভুক্ত প্রোডাক্টগুলোর বাইরে আপনার যদি অন্য কোনো subscription প্রয়োজন হয়, তাহলে নিচে রিকোয়েস্ট করুন।</p>
+      <button class="btn-gold" onclick="openCustomRequestModal()">✨ কাস্টম প্রোডাক্ট রিকোয়েস্ট করুন</button>
+    </div>
+
+    <!-- Owner Card -->
+    <div class="owner-badge-card">
+      <div class="owner-avatar">R</div>
+      <div>
+        <div style="font-size: 12px; color: var(--gold-primary); font-weight: 700;">OWNER & FOUNDER</div>
+        <div style="font-size: 17px; font-weight: 900; color: #fff;">Raju Ahammed</div>
+        <div style="font-size: 12px; color: var(--text-muted);">100% Genuine, Private & Secured Subscriptions with full warranty support.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Admin Panel Section -->
+  <div id="adminSection" class="container" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-dark); padding-bottom: 14px;">
+      <div>
+        <h2 style="font-size: 22px; font-weight: 900; color: var(--gold-light);">⚡ Admin Command Center</h2>
+        <div style="font-size: 12px; color: var(--text-muted);">Logged in as Raju Ahammed (Administrator)</div>
+      </div>
+      <button class="btn-outlined" onclick="exitAdmin()">Exit to Store</button>
+    </div>
+
+    <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 6px;">
+      <button class="btn-gold admin-nav-btn active" onclick="switchAdminTab('overview')">Overview</button>
+      <button class="btn-gold admin-nav-btn" onclick="switchAdminTab('products')">Products</button>
+      <button class="btn-gold admin-nav-btn" onclick="switchAdminTab('requests')">Custom Requests</button>
+      <button class="btn-gold admin-nav-btn" onclick="switchAdminTab('orders')">Orders</button>
+      <button class="btn-gold admin-nav-btn" onclick="switchAdminTab('cloud')">Cloud Sync</button>
+    </div>
+
+    <div id="adminTabOverview">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px;">
+        <div style="background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 18px;">
+          <div style="font-size: 12px; color: var(--text-muted);">Total Orders</div>
+          <div style="font-size: 26px; font-weight: 900; color: var(--gold-primary);" id="adminTotalOrders">0</div>
+        </div>
+        <div style="background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 18px;">
+          <div style="font-size: 12px; color: var(--text-muted);">Completed Orders</div>
+          <div style="font-size: 26px; font-weight: 900; color: var(--emerald);" id="adminCompletedOrders">0</div>
+        </div>
+        <div style="background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 18px;">
+          <div style="font-size: 12px; color: var(--text-muted);">Revenue</div>
+          <div style="font-size: 26px; font-weight: 900; color: var(--cyan);" id="adminTotalRevenue">৳0</div>
+        </div>
+        <div style="background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 18px;">
+          <div style="font-size: 12px; color: var(--text-muted);">Pending Requests</div>
+          <div style="font-size: 26px; font-weight: 900; color: var(--amber-glow);" id="adminTotalRequests">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="adminTabProducts" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 16px; font-weight: 700; color: var(--gold-light);">Manage Products & Prices</h3>
+        <button class="btn-gold" style="font-size: 12px; padding: 6px 14px;" onclick="promptAddProduct()">+ Add Product</button>
+      </div>
+      <div id="adminProductList"></div>
+    </div>
+
+    <div id="adminTabRequests" style="display: none;">
+      <h3 style="font-size: 16px; font-weight: 700; color: var(--gold-light); margin-bottom: 14px;">Customer Product Requests</h3>
+      <div id="adminRequestsList"></div>
+    </div>
+
+    <div id="adminTabOrders" style="display: none;">
+      <h3 style="font-size: 16px; font-weight: 700; color: var(--gold-light); margin-bottom: 14px;">Customer Orders</h3>
+      <div id="adminOrdersList"></div>
+    </div>
+
+    <div id="adminTabCloud" style="display: none;">
+      <div style="background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 20px;">
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--gold-light); margin-bottom: 8px;">Firebase Real-Time Cloud Sync</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+          Paste your free Firebase Firestore config JSON here so your price edits and newly added products sync immediately across all customer devices worldwide!
+        </p>
+        <div style="margin-bottom: 12px;">
+          <span class="badge badge-gold" id="cloudStatusBadge">🟡 Local Mode</span>
+        </div>
+        <textarea id="firebaseConfigInput" class="form-textarea" rows="6" placeholder='{"apiKey": "...", "authDomain": "...", "projectId": "..."}'></textarea>
+        <div style="display: flex; gap: 10px; margin-top: 14px;">
+          <button class="btn-gold" onclick="saveCloudConfig()">Save & Connect Cloud</button>
+          <button class="btn-outlined" onclick="syncAllToCloud()">Force Push All Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('checkoutModal')">✕</button>
+      <h3 style="font-size: 18px; font-weight: 800; color: var(--gold-light); margin-bottom: 6px;">Confirm Subscription Order</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Instant setup after payment verification.</p>
+
+      <div style="background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 16px;">
+        <div style="font-size: 15px; font-weight: 800; color: #fff;" id="orderProductName">YouTube Premium</div>
+        <div style="font-size: 12px; color: var(--gold-primary);" id="orderPlanDetails">1 Month (Non-Renew)</div>
+        <div style="font-size: 20px; font-weight: 900; color: var(--gold-light); margin-top: 6px;" id="orderTotalAmount">৳149</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your Name *</label>
+        <input type="text" id="orderCustomerName" class="form-input" placeholder="e.g. Tanvir Ahmed">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone / WhatsApp Number *</label>
+        <input type="text" id="orderCustomerPhone" class="form-input" placeholder="017xxxxxxxx">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email to activate subscription on *</label>
+        <input type="email" id="orderTargetAccount" class="form-input" placeholder="your_email@gmail.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Select Payment Method *</label>
+        <select id="orderPaymentMethod" class="form-select">
+          <option value="bKash">bKash (Send Money / Personal: 01994074975)</option>
+          <option value="Nagad">Nagad (Send Money: 01994074975)</option>
+          <option value="Rocket">Rocket (01994074975)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Payment TrxID / Transaction ID *</label>
+        <input type="text" id="orderTrxId" class="form-input" placeholder="e.g. BKT983271">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Have a Promo Coupon?</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="couponCodeInput" class="form-input" placeholder="e.g. WELCOME10">
+          <button class="btn-outlined" style="padding: 6px 14px; font-size: 12px;" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div id="couponMessage" style="font-size: 11px; margin-top: 4px;"></div>
+      </div>
+
+      <button class="btn-gold" style="width: 100%;" onclick="submitOrder()">Confirm & Place Order</button>
+    </div>
+  </div>
+
+  <!-- Custom Request Modal -->
+  <div id="customRequestModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('customRequestModal')">✕</button>
+      <h3 style="font-size: 18px; font-weight: 800; color: var(--gold-light); margin-bottom: 6px;">Request Unlisted Product</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">আপনার প্রয়োজনীয় কোনো প্রোডাক্ট লিস্টে না থাকলে রিকোয়েস্ট করুন। সম্ভব হলে আমরা ব্যবস্থা করে দেব।</p>
+
+      <div class="form-group">
+        <label class="form-label">Your Name *</label>
+        <input type="text" id="reqName" class="form-input" placeholder="Your name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">WhatsApp / Phone *</label>
+        <input type="text" id="reqContact" class="form-input" placeholder="Your phone or WhatsApp">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Requested Product / Service Name *</label>
+        <input type="text" id="reqProduct" class="form-input" placeholder="e.g. Canva Pro, Spotify, TradingView">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Required Duration</label>
+        <input type="text" id="reqDuration" class="form-input" placeholder="e.g. 1 Month, 1 Year">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Additional Message / Note</label>
+        <textarea id="reqMessage" class="form-textarea" rows="2" placeholder="Any specific requirement..."></textarea>
+      </div>
+
+      <button class="btn-gold" style="width: 100%;" onclick="submitCustomRequest()">Submit Request</button>
+    </div>
+  </div>
+
+  <!-- Admin Auth Modal -->
+  <div id="adminAuthModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 380px; text-align: center;">
+      <button class="modal-close-btn" onclick="closeModal('adminAuthModal')">✕</button>
+      <div style="font-size: 36px; margin-bottom: 8px;">🔐</div>
+      <h3 style="font-size: 18px; font-weight: 800; color: var(--gold-light); margin-bottom: 6px;">Admin Access</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Enter Secret Code to access command center</p>
+
+      <div id="lockoutAlert" style="display: none; background: rgba(255,51,102,0.15); border: 1px solid var(--crimson); color: #ff5252; padding: 10px; border-radius: var(--radius-sm); font-size: 12px; margin-bottom: 12px;"></div>
+
+      <div class="form-group" id="adminInputGroup">
+        <input type="password" id="adminSecretInput" class="form-input" placeholder="Enter Secret Code" style="text-align: center; letter-spacing: 2px;">
+      </div>
+
+      <button class="btn-gold" id="btnAdminVerify" style="width: 100%;" onclick="verifyAdminSecret()">Authorize & Strike</button>
+    </div>
+  </div>
+
+  <!-- Thor Hammer Animation Fullscreen Overlay -->
+  <div id="thorOverlay">
+    <canvas id="thorCanvas"></canvas>
+    <div class="thor-text">⚡ ACCESS GRANTED ⚡</div>
+  </div>
+
+  <!-- Floating 24/7 Support Button -->
+  <div class="floating-support-btn" onclick="toggleSupportPopup()" title="Official Support">💬</div>
+  <div class="support-popup" id="supportPopup">
+    <div style="font-weight: 800; font-size: 13px; color: var(--gold-primary); margin-bottom: 10px;">Official 24/7 Support</div>
+    <a href="https://wa.me/8801994074975" target="_blank" class="support-item">
+      <span>💬</span> WhatsApp: 01994074975
+    </a>
+    <a href="https://t.me/aioceo36" target="_blank" class="support-item">
+      <span>✈️</span> Telegram: @aioceo36
+    </a>
+    <a href="https://www.facebook.com/FahimPS36" target="_blank" class="support-item">
+      <span>📘</span> Facebook: FahimPS36
+    </a>
+    <a href="tel:01994074975" class="support-item">
+      <span>📞</span> Call: 01994074975
+    </a>
+    <div style="border-top: 1px solid var(--border-dark); margin: 6px 0;"></div>
+    <div style="font-size: 11px; color: var(--text-muted); padding: 4px;">Created by Raju Ahammed</div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="font-size: 24px; margin-bottom: 8px;">👑</div>
+    <div style="font-weight: 900; font-size: 16px; color: var(--gold-light);">FAHIM PREMIUM SUBSCRIPTION</div>
+    <div style="font-size: 12px; color: var(--gold-primary); font-style: italic; margin-bottom: 12px;">“Trusted Digital Services”</div>
+    <div style="font-size: 12px; color: var(--text-muted);">Created & Managed by <strong>Raju Ahammed</strong></div>
+    <div style="font-size: 11px; color: var(--text-subtle); margin-top: 12px;">© 2026 Fahim Premium. Ready for GitHub Pages deployment.</div>
+  </footer>
+
+  <script>
+    // Initial Products Catalog
+    const initialProducts = [
+      {
+        id: "yt_prem",
+        name: "YouTube Premium",
+        brand: "Google / YouTube",
+        category: "Entertainment",
+        icon: "▶️",
+        bg: "linear-gradient(135deg, #ff0000, #b71c1c)",
+        desc: "Ad-free videos, background play, and YouTube Music included.",
+        variants: [
+          { label: "1 Month (Non-Renew)", months: 1, type: "Non-Renew", price: 149, orig: 250 },
+          { label: "1 Month (Renew)", months: 1, type: "Renew", price: 199, orig: 300 }
+        ]
+      },
+      {
+        id: "g_storage_5tb",
+        name: "Google Storage / Google One 5TB",
+        brand: "Google",
+        category: "Cloud Storage",
+        icon: "☁️",
+        bg: "linear-gradient(135deg, #4285f4, #0d47a1)",
+        desc: "5,000 GB cloud storage shared across Google Drive, Gmail, & Photos.",
+        variants: [
+          { label: "1 Month", months: 1, type: "Non-Renew", price: 299, orig: 400 },
+          { label: "2 Months", months: 2, type: "Non-Renew", price: 580, orig: 750 },
+          { label: "3 Months", months: 3, type: "Non-Renew", price: 850, orig: 1100 },
+          { label: "4 Months", months: 4, type: "Non-Renew", price: 1120, orig: 1450 },
+          { label: "5 Months", months: 5, type: "Non-Renew", price: 1380, orig: 1800 },
+          { label: "6 Months", months: 6, type: "Non-Renew", price: 1650, orig: 2150 },
+          { label: "7 Months", months: 7, type: "Non-Renew", price: 1900, orig: 2500 },
+          { label: "8 Months", months: 8, type: "Non-Renew", price: 2150, orig: 2800 },
+          { label: "9 Months", months: 9, type: "Non-Renew", price: 2400, orig: 3100 },
+          { label: "10 Months", months: 10, type: "Non-Renew", price: 2650, orig: 3450 },
+          { label: "11 Months", months: 11, type: "Non-Renew", price: 2890, orig: 3800 },
+          { label: "12 Months", months: 12, type: "Non-Renew", price: 3100, orig: 4100 },
+          { label: "13 Months", months: 13, type: "Non-Renew", price: 3350, orig: 4400 },
+          { label: "14 Months", months: 14, type: "Non-Renew", price: 3590, orig: 4700 },
+          { label: "15 Months", months: 15, type: "Non-Renew", price: 3820, orig: 5000 },
+          { label: "16 Months", months: 16, type: "Non-Renew", price: 4050, orig: 5300 },
+          { label: "17 Months", months: 17, type: "Non-Renew", price: 4280, orig: 5600 },
+          { label: "18 Months", months: 18, type: "Non-Renew", price: 4499, orig: 5900 }
+        ]
+      },
+      {
+        id: "netflix",
+        name: "Netflix Premium 4K",
+        brand: "Netflix",
+        category: "Entertainment",
+        icon: "🎬",
+        bg: "linear-gradient(135deg, #e50914, #221f1f)",
+        desc: "Ultra HD 4K streaming with multi-device support and profile lock.",
+        variants: [
+          { label: "1 Month (Non-Renew)", months: 1, type: "Non-Renew", price: 299, orig: 450 },
+          { label: "1 Month (Renew)", months: 1, type: "Renew", price: 399, orig: 550 }
+        ]
+      },
+      {
+        id: "amazon_prime",
+        name: "Amazon Prime Video",
+        brand: "Amazon",
+        category: "Entertainment",
+        icon: "📦",
+        bg: "linear-gradient(135deg, #00a8e1, #005696)",
+        desc: "Prime originals, 4K movies, and download support.",
+        variants: [
+          { label: "1 Month", months: 1, type: "Non-Renew", price: 120, orig: 180 },
+          { label: "2 Months", months: 2, type: "Non-Renew", price: 230, orig: 350 },
+          { label: "3 Months", months: 3, type: "Non-Renew", price: 330, orig: 480 },
+          { label: "4 Months", months: 4, type: "Non-Renew", price: 430, orig: 620 },
+          { label: "5 Months", months: 5, type: "Non-Renew", price: 520, orig: 750 },
+          { label: "6 Months", months: 6, type: "Non-Renew", price: 600, orig: 900 }
+        ]
+      },
+      {
+        id: "hbo_max",
+        name: "HBO Max",
+        brand: "Warner Bros",
+        category: "Entertainment",
+        icon: "📺",
+        bg: "linear-gradient(135deg, #5822b4, #2b0a63)",
+        desc: "Warner Bros, DC Universe, and HBO original series.",
+        variants: [
+          { label: "1 Month", months: 1, type: "Non-Renew", price: 250, orig: 380 }
+        ]
+      },
+      {
+        id: "disney_plus",
+        name: "Disney+",
+        brand: "Disney",
+        category: "Entertainment",
+        icon: "✨",
+        bg: "linear-gradient(135deg, #113ccf, #0b194f)",
+        desc: "Disney, Marvel, Star Wars, Pixar and NatGeo in 4K.",
+        variants: [
+          { label: "1 Month", months: 1, type: "Non-Renew", price: 220, orig: 350 }
+        ]
+      },
+      {
+        id: "ms_365",
+        name: "Microsoft 365 / Office",
+        brand: "Microsoft",
+        category: "Productivity",
+        icon: "💼",
+        bg: "linear-gradient(135deg, #d83b01, #f25022)",
+        desc: "Word, Excel, PowerPoint + 1TB OneDrive cloud storage.",
+        variants: [
+          { label: "12 Months (Renew)", months: 12, type: "Renew", price: 850, orig: 1400 }
+        ]
+      }
+    ];
+
+    // Cloud Sync & Local Storage Data Layer
+    let firestoreDb = null;
+    let isCloudActive = false;
+
+    function initFirebaseFromStorage() {
+      const savedConfig = localStorage.getItem('fps_firebase_config');
+      if (savedConfig && window.firebase) {
+        try {
+          const config = JSON.parse(savedConfig);
+          if (!firebase.apps.length) {
+            firebase.initializeApp(config);
+          }
+          firestoreDb = firebase.firestore();
+          isCloudActive = true;
+          updateCloudStatusBadge(true);
+          listenToCloudUpdates();
+        } catch (e) {
+          console.warn("Firebase init failed:", e);
+          updateCloudStatusBadge(false);
+        }
+      } else {
+        updateCloudStatusBadge(false);
+      }
+    }
+
+    function updateCloudStatusBadge(connected) {
+      const badge = document.getElementById('cloudStatusBadge');
+      if (badge) {
+        if (connected) {
+          badge.className = "badge badge-green";
+          badge.innerText = "🟢 Connected & Live (Real-Time Cloud Sync Active)";
+        } else {
+          badge.className = "badge badge-gold";
+          badge.innerText = "🟡 Local Mode (Paste Firebase Config below to sync worldwide)";
+        }
+      }
+    }
+
+    function saveCloudConfig() {
+      const input = document.getElementById('firebaseConfigInput').value.trim();
+      if (!input) {
+        alert("Please paste your Firebase Config JSON.");
+        return;
+      }
+      try {
+        const parsed = JSON.parse(input);
+        localStorage.setItem('fps_firebase_config', JSON.stringify(parsed));
+        initFirebaseFromStorage();
+        if (isCloudActive) {
+          syncAllToCloud();
+          alert("🎉 Firebase Connected Successfully! Your changes will now sync live across all customer devices worldwide!");
+        }
+      } catch (err) {
+        alert("Invalid JSON format. Please ensure you copied valid JSON from Firebase Console.");
+      }
+    }
+
+    function syncAllToCloud() {
+      if (!firestoreDb) {
+        alert("Firebase is not connected. Please save your Firebase Config first.");
+        return;
+      }
+      const products = getProducts();
+      products.forEach(p => {
+        firestoreDb.collection('products').doc(p.id).set(p);
+      });
+      alert("✅ All products and prices uploaded to Firestore Database!");
+    }
+
+    function listenToCloudUpdates() {
+      if (!firestoreDb) return;
+
+      firestoreDb.collection('products').onSnapshot(snapshot => {
+        if (!snapshot.empty) {
+          const cloudProds = [];
+          snapshot.forEach(doc => cloudProds.push(doc.data()));
+          localStorage.setItem('fps_products', JSON.stringify(cloudProds));
+          renderProducts(document.getElementById('categoryFilter') ? document.getElementById('categoryFilter').value : "All");
+          if (document.getElementById('adminTabProducts') && document.getElementById('adminTabProducts').style.display !== 'none') {
+            renderAdminProducts();
+          }
+        }
+      }, err => console.warn("Firestore products listener error:", err));
+
+      firestoreDb.collection('orders').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        const cloudOrders = [];
+        snapshot.forEach(doc => cloudOrders.push(doc.data()));
+        localStorage.setItem('fps_orders', JSON.stringify(cloudOrders));
+        updateAdminDashboard();
+        if (document.getElementById('adminTabOrders') && document.getElementById('adminTabOrders').style.display !== 'none') {
+          renderAdminOrders();
+        }
+      }, err => console.warn("Firestore orders listener error:", err));
+
+      firestoreDb.collection('requests').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        const cloudReqs = [];
+        snapshot.forEach(doc => cloudReqs.push(doc.data()));
+        localStorage.setItem('fps_requests', JSON.stringify(cloudReqs));
+        updateAdminDashboard();
+        if (document.getElementById('adminTabRequests') && document.getElementById('adminTabRequests').style.display !== 'none') {
+          renderAdminRequests();
+        }
+      }, err => console.warn("Firestore requests listener error:", err));
+    }
+
+    function getProducts() {
+      const data = localStorage.getItem('fps_products');
+      return data ? JSON.parse(data) : initialProducts;
+    }
+
+    function saveProducts(prods) {
+      localStorage.setItem('fps_products', JSON.stringify(prods));
+      if (firestoreDb) {
+        prods.forEach(p => {
+          firestoreDb.collection('products').doc(p.id).set(p);
+        });
+      }
+    }
+
+    function getOrders() {
+      const data = localStorage.getItem('fps_orders');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveOrders(orders) {
+      localStorage.setItem('fps_orders', JSON.stringify(orders));
+      if (firestoreDb && orders.length > 0) {
+        orders.forEach(o => firestoreDb.collection('orders').doc(o.id).set(o));
+      }
+    }
+
+    function getRequests() {
+      const data = localStorage.getItem('fps_requests');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveRequests(reqs) {
+      localStorage.setItem('fps_requests', JSON.stringify(reqs));
+      if (firestoreDb && reqs.length > 0) {
+        reqs.forEach(r => firestoreDb.collection('requests').doc(String(r.id)).set(r));
+      }
+    }
+
+    // Render Product Catalog
+    function renderProducts(filterCat = "All") {
+      const grid = document.getElementById('productGrid');
+      const products = getProducts();
+      grid.innerHTML = "";
+
+      const filtered = filterCat === "All" ? products : products.filter(p => p.category === filterCat);
+
+      filtered.forEach(p => {
+        const lowestVariant = p.variants[0];
+        const card = document.createElement('div');
+        card.className = "product-card";
+        if (p.id === "yt_prem" || p.id === "g_storage_5tb") card.classList.add("bestseller");
+
+        let selectOptions = p.variants.map((v, idx) => 
+          `<option value="${idx}">${v.label} - ৳${v.price}</option>`
+        ).join("");
+
+        card.innerHTML = `
+          <div class="product-top-bar">
+            <span class="badge badge-gold">${p.category}</span>
+            <span style="font-size: 11px; color: var(--gold-primary);">⚡ Verified</span>
+          </div>
+          <div class="brand-badge-box" style="background: ${p.bg};">${p.icon}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-category">${p.brand}</div>
+          <div class="product-desc">${p.desc}</div>
+          
+          <select class="variant-selector" id="sel_${p.id}" onchange="updateCardPrice('${p.id}')">
+            ${selectOptions}
+          </select>
+
+          <div class="product-price-row">
+            <div>
+              <div class="price-orig" id="orig_${p.id}">৳${lowestVariant.orig}</div>
+              <div class="price-current" id="price_${p.id}">৳${lowestVariant.price}</div>
+            </div>
+            <button class="btn-gold" style="padding: 6px 14px; font-size: 12px;" onclick="startOrder('${p.id}')">Order Now</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function updateCardPrice(prodId) {
+      const products = getProducts();
+      const p = products.find(x => x.id === prodId);
+      if (!p) return;
+      const sel = document.getElementById('sel_' + prodId);
+      const variant = p.variants[sel.value];
+      document.getElementById('price_' + prodId).innerText = "৳" + variant.price;
+      document.getElementById('orig_' + prodId).innerText = "৳" + variant.orig;
+    }
+
+    function filterProducts() {
+      const cat = document.getElementById('categoryFilter').value;
+      renderProducts(cat);
+    }
+
+    // Checkout Flow
+    let currentOrderProduct = null;
+    let currentOrderVariant = null;
+    let appliedCouponDiscount = 0;
+
+    function startOrder(prodId) {
+      const products = getProducts();
+      const p = products.find(x => x.id === prodId);
+      if (!p) return;
+      const sel = document.getElementById('sel_' + prodId);
+      const variant = p.variants[sel.value];
+
+      currentOrderProduct = p;
+      currentOrderVariant = variant;
+      appliedCouponDiscount = 0;
+
+      document.getElementById('orderProductName').innerText = p.name;
+      document.getElementById('orderPlanDetails').innerText = `${variant.label} (${variant.type})`;
+      document.getElementById('orderTotalAmount').innerText = "৳" + variant.price;
+      document.getElementById('couponMessage').innerText = "";
+      document.getElementById('couponCodeInput').value = "";
+
+      openModal('checkoutModal');
+    }
+
+    function applyCoupon() {
+      const code = document.getElementById('couponCodeInput').value.trim().toUpperCase();
+      const msg = document.getElementById('couponMessage');
+      if (!currentOrderVariant) return;
+
+      if (code === "WELCOME10") {
+        appliedCouponDiscount = Math.round(currentOrderVariant.price * 0.1);
+        msg.style.color = "var(--emerald)";
+        msg.innerText = `10% Discount applied! Saved ৳${appliedCouponDiscount}`;
+      } else if (code === "FAHIMVIP") {
+        appliedCouponDiscount = 50;
+        msg.style.color = "var(--emerald)";
+        msg.innerText = `৳50 Flat VIP discount applied!`;
+      } else if (code === "GOLD36") {
+        appliedCouponDiscount = Math.round(currentOrderVariant.price * 0.15);
+        msg.style.color = "var(--emerald)";
+        msg.innerText = `15% Gold discount applied! Saved ৳${appliedCouponDiscount}`;
+      } else {
+        appliedCouponDiscount = 0;
+        msg.style.color = "var(--crimson)";
+        msg.innerText = "Invalid or expired coupon code.";
+      }
+      const finalPrice = Math.max(0, currentOrderVariant.price - appliedCouponDiscount);
+      document.getElementById('orderTotalAmount').innerText = "৳" + finalPrice;
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('orderCustomerName').value.trim();
+      const phone = document.getElementById('orderCustomerPhone').value.trim();
+      const account = document.getElementById('orderTargetAccount').value.trim();
+      const trx = document.getElementById('orderTrxId').value.trim();
+      const method = document.getElementById('orderPaymentMethod').value;
+
+      if (!name || !phone || !account || !trx) {
+        alert("Please fill in all required fields marked with *");
+        return;
+      }
+
+      const finalPrice = Math.max(0, currentOrderVariant.price - appliedCouponDiscount);
+      const orderId = "FPS-" + Math.floor(10000 + Math.random() * 90000);
+      const order = {
+        id: orderId,
+        customerName: name,
+        contact: phone,
+        targetAccount: account,
+        productName: currentOrderProduct.name,
+        duration: currentOrderVariant.label,
+        renewalType: currentOrderVariant.type,
+        price: finalPrice,
+        paymentMethod: method,
+        transactionId: trx,
+        status: "Pending",
+        createdAt: Date.now()
+      };
+
+      const orders = getOrders();
+      orders.unshift(order);
+      saveOrders(orders);
+
+      closeModal('checkoutModal');
+
+      // WhatsApp direct confirmation
+      const waMsg = `Hello Fahim Premium! I have placed Order ${orderId} for ${currentOrderProduct.name} (${currentOrderVariant.label}). Target Email: ${account}. Method: ${method}, Trx ID: ${trx}. Please activate.`;
+      const waUrl = "https://wa.me/8801994074975?text=" + encodeURIComponent(waMsg);
+
+      if (confirm(`Order ${orderId} successfully placed!\n\nWould you like to send your Order ID to Raju Ahammed on WhatsApp for 10-30 min instant activation?`)) {
+        window.open(waUrl, '_blank');
+      }
+    }
+
+    // Custom Product Request
+    function submitCustomRequest() {
+      const name = document.getElementById('reqName').value.trim();
+      const contact = document.getElementById('reqContact').value.trim();
+      const product = document.getElementById('reqProduct').value.trim();
+      const duration = document.getElementById('reqDuration').value.trim();
+      const message = document.getElementById('reqMessage').value.trim();
+
+      if (!name || !contact || !product) {
+        alert("Please fill in name, contact, and requested product.");
+        return;
+      }
+
+      const req = {
+        id: Date.now(),
+        customerName: name,
+        contact: contact,
+        productName: product,
+        duration: duration || "1 Month",
+        message: message,
+        status: "Pending",
+        createdAt: Date.now()
+      };
+
+      const reqs = getRequests();
+      reqs.unshift(req);
+      saveRequests(reqs);
+
+      closeModal('customRequestModal');
+      alert("আমরা আপনার রিকোয়েস্ট পেয়েছি। সম্ভব হলে আপনার প্রয়োজনীয় প্রোডাক্টটি ব্যবস্থা করে দেওয়ার চেষ্টা করব!");
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function openCustomRequestModal() { openModal('customRequestModal'); }
+    function openAdminAuthModal() { checkLockout(); openModal('adminAuthModal'); }
+    function toggleSupportPopup() { document.getElementById('supportPopup').classList.toggle('active'); }
+
+    // Admin Security & Lockout
+    function checkLockout() {
+      const lockoutUntil = parseInt(localStorage.getItem('fps_lockout_until') || '0');
+      const now = Date.now();
+      const alertBox = document.getElementById('lockoutAlert');
+      const inputGrp = document.getElementById('adminInputGroup');
+      const btn = document.getElementById('btnAdminVerify');
+
+      if (now < lockoutUntil) {
+        const remainingSec = Math.ceil((lockoutUntil - now) / 1000);
+        const mins = Math.floor(remainingSec / 60);
+        const secs = remainingSec % 60;
+        alertBox.style.display = "block";
+        alertBox.innerText = `Too many incorrect attempts. Please try again in ${mins}m ${secs}s.`;
+        inputGrp.style.display = "none";
+        btn.style.display = "none";
+        return true;
+      } else {
+        alertBox.style.display = "none";
+        inputGrp.style.display = "block";
+        btn.style.display = "block";
+        return false;
+      }
+    }
+
+    function verifyAdminSecret() {
+      if (checkLockout()) return;
+      const code = document.getElementById('adminSecretInput').value.trim();
+
+      if (code === "Raju366") {
+        localStorage.setItem('fps_wrong_attempts', '0');
+        localStorage.setItem('fps_lockout_until', '0');
+        closeModal('adminAuthModal');
+        playThorHammerAnimation(() => {
+          openAdminPanel();
+        });
+      } else {
+        let attempts = parseInt(localStorage.getItem('fps_wrong_attempts') || '0') + 1;
+        localStorage.setItem('fps_wrong_attempts', attempts.toString());
+
+        let lockMs = 0;
+        if (attempts === 2) lockMs = 2 * 60 * 1000;
+        else if (attempts === 3) lockMs = 5 * 60 * 1000;
+        else if (attempts >= 4) lockMs = 10 * 60 * 1000;
+
+        if (lockMs > 0) {
+          localStorage.setItem('fps_lockout_until', (Date.now() + lockMs).toString());
+          checkLockout();
+        } else {
+          alert("Access Denied. Invalid Code.");
+        }
+      }
+    }
+
+    // Thor Hammer Cinematic Animation on Canvas
+    function playThorHammerAnimation(onComplete) {
+      const overlay = document.getElementById('thorOverlay');
+      overlay.style.display = "flex";
+      const canvas = document.getElementById('thorCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      let frame = 0;
+      const totalFrames = 90;
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (frame < 40) {
+          ctx.strokeStyle = frame % 4 === 0 ? "#00e5ff" : "#ffffff";
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(cx - 150, 0);
+          ctx.lineTo(cx - 50, cy - 80);
+          ctx.lineTo(cx + 80, cy - 40);
+          ctx.lineTo(cx, cy);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(cx + 120, 0);
+          ctx.lineTo(cx + 40, cy - 100);
+          ctx.lineTo(cx, cy);
+          ctx.stroke();
+        }
+
+        if (frame >= 20 && frame <= 65) {
+          const hammerY = Math.min(cy, (frame - 20) * 12);
+          ctx.save();
+          ctx.translate(cx, hammerY);
+
+          ctx.fillStyle = "#2b2214";
+          ctx.fillRect(-8, 0, 16, 120);
+
+          ctx.fillStyle = "#33333f";
+          ctx.strokeStyle = "#ffd700";
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          ctx.roundRect(-70, -45, 140, 50, 10);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.strokeStyle = "#ffffff";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(0, -20, 14, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.restore();
+        }
+
+        if (frame >= 55) {
+          const progress = (frame - 55) / 35;
+          const radius = progress * (canvas.width * 0.45);
+          ctx.strokeStyle = `rgba(255, 215, 0, ${1 - progress})`;
+          ctx.lineWidth = 6;
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.stroke();
+
+          for (let i = 0; i < 30; i++) {
+            const angle = (i / 30) * Math.PI * 2;
+            const dist = progress * 200 * ((i % 3) + 1);
+            ctx.fillStyle = i % 2 === 0 ? "#ffd700" : "#fff";
+            ctx.beginPath();
+            ctx.arc(cx + Math.cos(angle) * dist, cy + Math.sin(angle) * dist, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        frame++;
+        if (frame < totalFrames) {
+          requestAnimationFrame(render);
+        } else {
+          overlay.style.display = "none";
+          onComplete();
+        }
+      }
+
+      render();
+    }
+
+    // Admin Panel Views & CRUD
+    function openAdminPanel() {
+      document.getElementById('customerSection').style.display = "none";
+      document.getElementById('adminSection').style.display = "block";
+      updateAdminDashboard();
+    }
+
+    function exitAdmin() {
+      document.getElementById('adminSection').style.display = "none";
+      document.getElementById('customerSection').style.display = "block";
+      renderProducts();
+    }
+
+    function switchAdminTab(tab) {
+      document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.getElementById('adminTabOverview').style.display = tab === 'overview' ? 'block' : 'none';
+      document.getElementById('adminTabProducts').style.display = tab === 'products' ? 'block' : 'none';
+      document.getElementById('adminTabRequests').style.display = tab === 'requests' ? 'block' : 'none';
+      document.getElementById('adminTabOrders').style.display = tab === 'orders' ? 'block' : 'none';
+      document.getElementById('adminTabCloud').style.display = tab === 'cloud' ? 'block' : 'none';
+
+      if (tab === 'overview') updateAdminDashboard();
+      if (tab === 'products') renderAdminProducts();
+      if (tab === 'requests') renderAdminRequests();
+      if (tab === 'orders') renderAdminOrders();
+      if (tab === 'cloud') {
+        const cfg = localStorage.getItem('fps_firebase_config') || '';
+        document.getElementById('firebaseConfigInput').value = cfg;
+        updateCloudStatusBadge(isCloudActive);
+      }
+    }
+
+    function updateAdminDashboard() {
+      const orders = getOrders();
+      const reqs = getRequests();
+      const completed = orders.filter(o => o.status === "Completed");
+      const rev = completed.reduce((sum, o) => sum + (o.price || 0), 0);
+
+      document.getElementById('adminTotalOrders').innerText = orders.length;
+      document.getElementById('adminCompletedOrders').innerText = completed.length;
+      document.getElementById('adminTotalRevenue').innerText = "৳" + rev;
+      document.getElementById('adminTotalRequests').innerText = reqs.length;
+    }
+
+    function renderAdminProducts() {
+      const list = document.getElementById('adminProductList');
+      const products = getProducts();
+      list.innerHTML = "";
+
+      products.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.style.cssText = "background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 14px; margin-bottom: 10px;";
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="color: var(--gold-light); font-size: 15px;">${p.name}</strong>
+              <div style="font-size: 12px; color: var(--text-muted);">${p.brand} • ${p.category} • ${p.variants.length} pricing tier(s)</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-outlined" style="padding: 4px 10px; font-size: 11px;" onclick="editProductPrice('${p.id}')">Edit Prices</button>
+              <button style="background: rgba(255,51,102,0.2); border: 1px solid var(--crimson); color: var(--crimson); border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;" onclick="deleteProduct('${p.id}')">Delete</button>
+            </div>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function editProductPrice(prodId) {
+      const products = getProducts();
+      const p = products.find(x => x.id === prodId);
+      if (!p) return;
+      const newPriceStr = prompt(`Set base 1-Month price for ${p.name} in BDT:`, p.variants[0].price);
+      if (newPriceStr !== null) {
+        const np = parseInt(newPriceStr) || p.variants[0].price;
+        p.variants[0].price = np;
+        saveProducts(products);
+        renderAdminProducts();
+        alert("Price updated successfully!");
+      }
+    }
+
+    function deleteProduct(prodId) {
+      if (confirm("Are you sure you want to delete this product?")) {
+        let products = getProducts();
+        products = products.filter(x => x.id !== prodId);
+        saveProducts(products);
+        renderAdminProducts();
+      }
+    }
+
+    function promptAddProduct() {
+      const name = prompt("Enter product name (e.g. Canva Pro):");
+      if (!name) return;
+      const price = parseInt(prompt("Enter 1-Month price in BDT:", "199")) || 199;
+      const cat = prompt("Enter category (Entertainment, Productivity, Cloud Storage):", "Productivity") || "Productivity";
+
+      const products = getProducts();
+      products.push({
+        id: "prod_" + Date.now(),
+        name: name,
+        brand: name,
+        category: cat,
+        icon: "💎",
+        bg: "linear-gradient(135deg, #aa771c, #1a1a24)",
+        desc: "Genuine subscription with full warranty.",
+        variants: [
+          { label: "1 Month", months: 1, type: "Non-Renew", price: price, orig: Math.round(price * 1.35) }
+        ]
+      });
+      saveProducts(products);
+      renderAdminProducts();
+    }
+
+    function renderAdminRequests() {
+      const list = document.getElementById('adminRequestsList');
+      const reqs = getRequests();
+      list.innerHTML = "";
+
+      if (reqs.length === 0) {
+        list.innerHTML = `<div style="color: var(--text-muted); padding: 20px 0;">No custom requests yet.</div>`;
+        return;
+      }
+
+      reqs.forEach((r, idx) => {
+        const item = document.createElement('div');
+        item.style.cssText = "background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 14px; margin-bottom: 10px;";
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong style="color: var(--gold-light); font-size: 15px;">${r.productName} (${r.duration})</strong>
+            <span class="badge badge-gold">${r.status}</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-white);">Customer: ${r.customerName} (${r.contact})</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin: 4px 0;">“${r.message || "No additional message"}”</div>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <a href="https://wa.me/88${r.contact.replace(/[^0-9]/g, '')}" target="_blank" class="btn-whatsapp" style="font-size: 11px; padding: 4px 10px;">WhatsApp Customer</a>
+            <button class="btn-outlined" style="font-size: 11px; padding: 4px 10px;" onclick="updateRequestStatus(${r.id})">Update Status</button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function updateRequestStatus(reqId) {
+      const reqs = getRequests();
+      const r = reqs.find(x => x.id === reqId);
+      if (!r) return;
+      const newStatus = prompt("Update status: (Pending, Contacted, Available, Not Available, Completed)", r.status);
+      if (newStatus) {
+        r.status = newStatus;
+        saveRequests(reqs);
+        renderAdminRequests();
+      }
+    }
+
+    function renderAdminOrders() {
+      const list = document.getElementById('adminOrdersList');
+      const orders = getOrders();
+      list.innerHTML = "";
+
+      if (orders.length === 0) {
+        list.innerHTML = `<div style="color: var(--text-muted); padding: 20px 0;">No customer orders placed yet.</div>`;
+        return;
+      }
+
+      orders.forEach((o, idx) => {
+        const item = document.createElement('div');
+        item.style.cssText = "background: var(--surface-card); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 14px; margin-bottom: 10px;";
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div>
+              <strong style="color: var(--gold-primary); font-size: 14px;">${o.id}</strong>
+              <span style="font-size: 13px; color: #fff; margin-left: 8px;">${o.productName} (${o.duration})</span>
+            </div>
+            <span class="badge ${o.status === 'Completed' ? 'badge-green' : 'badge-gold'}">${o.status}</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-white);">Customer: ${o.customerName} (${o.contact})</div>
+          <div style="font-size: 12px; color: var(--gold-light);">Activate Email: ${o.targetAccount}</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Paid: ৳${o.price} via ${o.paymentMethod} • Trx: ${o.transactionId}</div>
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <button class="btn-gold" style="font-size: 11px; padding: 4px 10px;" onclick="markOrderCompleted('${o.id}')">Mark Completed ✅</button>
+            <a href="https://wa.me/88${o.contact.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + o.customerName + '! Your order ' + o.id + ' for ' + o.productName + ' is ACTIVATED!')}" target="_blank" class="btn-whatsapp" style="font-size: 11px; padding: 4px 10px;">Notify on WhatsApp</a>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function markOrderCompleted(orderId) {
+      const orders = getOrders();
+      const o = orders.find(x => x.id === orderId);
+      if (o) {
+        o.status = "Completed";
+        saveOrders(orders);
+        renderAdminOrders();
+        updateAdminDashboard();
+        alert(`Order ${orderId} marked as Completed!`);
+      }
+    }
+
+    // Flash Sale Timer Countdown
+    let flashSeconds = 8130;
+    setInterval(() => {
+      if (flashSeconds > 0) {
+        flashSeconds--;
+        const h = String(Math.floor(flashSeconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((flashSeconds % 3600) / 60)).padStart(2, '0');
+        const s = String(flashSeconds % 60).padStart(2, '0');
+        document.getElementById('flashTimer').innerText = `${h}:${m}:${s}`;
+      }
+    }, 1000);
+
+    // Init Cloud Sync if configured
+    initFirebaseFromStorage();
+
+    // Initial render
+    renderProducts();
+  </script>
+</body>
+</html>
